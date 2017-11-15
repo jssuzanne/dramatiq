@@ -50,6 +50,8 @@ class Message(namedtuple("Message", (
         updated_options = attributes.pop("options", {})
         options = self.options.copy()
         options.update(updated_options)
+        kwargs = attributes.copy()
+        kwargs.update(dict(options=options))
         return self._replace(**attributes, options=options)
 
     def __str__(self):
