@@ -26,7 +26,19 @@ def parse_dependencies(filename):
                 continue
 
             elif line.startswith("-r"):
-                yield from parse_dependencies(line[len("-r "):])
+                # yield from parse_dependencies(line[len("-r "):])
+
+                # yield from does not work with python 3.4 and pip install
+                #
+                #   Complete output from command python setup.py egg_info:
+                #   Traceback (most recent call last):
+                #     File "<string>", line 1, in <module>
+                #     File "/tmp/pip-ZPEYhF-build/setup.py", line 29
+                #       yield from parse_dependencies(line[len("-r "):])
+                #                ^
+                #   SyntaxError: invalid syntax
+                for l in parse_dependencies(line[len("-r"):]):
+                    yield l
 
             else:
                 yield line
