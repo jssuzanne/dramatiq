@@ -52,7 +52,7 @@ class Message(namedtuple("Message", (
         options.update(updated_options)
         kwargs = attributes.copy()
         kwargs.update(dict(options=options))
-        return self._replace(**attributes, options=options)
+        return self._replace(**kwargs)
 
     def __str__(self):
         params = ", ".join(repr(arg) for arg in self.args)
